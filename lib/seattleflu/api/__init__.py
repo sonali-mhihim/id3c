@@ -4,6 +4,7 @@ Seattle Flu Study informatics API
 import logging
 from flask import Flask
 from . import config
+from .json import JsonEncoder
 from .router import blueprints
 
 
@@ -13,6 +14,8 @@ LOG = logging.getLogger(__name__)
 def create_app():
     app = Flask(__name__)
     app.config.update(config.from_environ())
+
+    app.json_encoder = JsonEncoder
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
